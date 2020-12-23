@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useState } from 'react';
+import {
+  Card, CardContent, Input, makeStyles, Typography,
+} from '@material-ui/core';
+import useTimer from './useTimer';
 
-function App() {
+const useStyle = makeStyles({
+  root: {
+    display: 'block',
+    margin: 'auto',
+    width: '300px',
+  },
+  content: {
+    textAlign: 'center',
+  },
+});
+
+const App: FC = () => {
+  const [limit, setLimit] = useState(10);
+  const [timer, reset] = useTimer(limit);
+  const classes = useStyle();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setLimit(Number(e.target.value));
+    reset();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Card className={classes.root} variant="outlined">
+        <CardContent className={classes.content}>
+          <Typography color="textPrimary">
+            {timer}
+          </Typography>
+        </CardContent>
+      </Card>
+      <Input className={classes.root} onChange={handleChange} />
+    </>
   );
-}
+};
 
 export default App;
