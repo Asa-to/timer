@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
 import {
-  Card, CardContent, Input, makeStyles, Typography,
+  Input, makeStyles,
 } from '@material-ui/core';
 import useTimer from './useTimer';
+import TimerCard from './TimerCard';
 
 const useStyle = makeStyles({
   root: {
@@ -16,7 +17,7 @@ const useStyle = makeStyles({
 });
 
 const App: FC = () => {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(0);
   const timer = useTimer(limit);
   const classes = useStyle();
 
@@ -27,14 +28,8 @@ const App: FC = () => {
 
   return (
     <>
-      <Card className={classes.root} variant="outlined">
-        <CardContent className={classes.content}>
-          <Typography color="textPrimary">
-            {timer}
-          </Typography>
-        </CardContent>
-      </Card>
-      <Input className={classes.root} onChange={handleChange} />
+      <TimerCard timer={timer} />
+      <Input type="number" className={classes.root} onChange={handleChange} defaultValue={0} />
     </>
   );
 };
