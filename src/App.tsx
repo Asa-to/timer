@@ -17,13 +17,12 @@ const useStyle = makeStyles({
 
 const App: FC = () => {
   const [limit, setLimit] = useState(10);
-  const [timer, reset] = useTimer(limit);
+  const timer = useTimer(limit);
   const classes = useStyle();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setLimit(Number(e.target.value));
-    reset();
   };
 
   return (

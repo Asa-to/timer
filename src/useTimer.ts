@@ -2,11 +2,10 @@ import {
   useState, useRef, useCallback, useEffect,
 } from 'react';
 
-const useTimer = (limit: number): [number, () => void] => {
+const useTimer = (limit: number): number => {
   const [timer, setTimer] = useState(limit);
   const timerID = useRef<NodeJS.Timeout>();
-  const reset = useCallback(() => setTimer(limit), [limit]);
-  const tick = () => setTimer((t) => t - 1);
+  const tick = useCallback(() => setTimer((t) => (t - 1 < 0 ? limit : t - 1)), [limit]);
 
   useEffect(() => {
     const clearTimer = () => {
@@ -14,17 +13,13 @@ const useTimer = (limit: number): [number, () => void] => {
     };
 
     clearTimer();
-    reset();
+    setTimer(limit);
     timerID.current = setInterval(() => tick(), 1000);
 
     return clearTimer;
-  }, [limit, reset]);
+  }, [limit, tick]);
 
-  useEffect(() => {
-    if (timer === 0) reset();
-  }, [timer, reset]);
-
-  return [timer, reset];
+  return timer;
 };
 
 export default useTimer;
