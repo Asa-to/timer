@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import {
   Input, makeStyles,
 } from '@material-ui/core';
-import useTimer from './useTimer';
-import TimerCard from './TimerCard';
+import useTimer from './utils/useTimer';
+import TimerCard from './component/TimerCard';
 
 const useStyle = makeStyles({
   root: {
