@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import {
-  Input, makeStyles,
+  TextField, makeStyles,
 } from '@material-ui/core';
 import useTimer from './utils/useTimer';
 import TimerCard from './component/TimerCard';
@@ -9,10 +9,6 @@ const useStyle = makeStyles({
   root: {
     display: 'block',
     margin: 'auto',
-    width: '300px',
-  },
-  content: {
-    textAlign: 'center',
   },
 });
 
@@ -28,8 +24,8 @@ const App: FC = () => {
 
   return (
     <>
+      <TextField type="number" variant="filled" className={classes.root} onChange={handleChange} defaultValue={0} />
       <TimerCard timer={timer} />
-      <Input type="number" className={classes.root} onChange={handleChange} defaultValue={0} />
     </>
   );
 };

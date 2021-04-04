@@ -5,7 +5,7 @@ import {
 const useTimer = (limit: number): number => {
   const [timer, setTimer] = useState(limit);
   const timerID = useRef<NodeJS.Timeout>();
-  const tick = useCallback(() => setTimer((t) => (t - 1 < 0 ? limit : t - 1)), [limit]);
+  const tick = useCallback(() => setTimer((t) => (t - 1 < 0 ? 0 : t - 1)), []);
 
   useEffect(() => {
     const clearTimer = () => {
