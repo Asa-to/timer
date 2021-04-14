@@ -14,7 +14,7 @@ const useTimer = (limit: number): {
   const [isActive, setIsActive] = useState(false);
   const timerID = useRef<NodeJS.Timeout>();
   const countDown = () => setTimer((t) => {
-    if (t - 1 === 0) setIsActive(false);
+    if (t - 1 < 0) setIsActive(false);
 
     return (t - 1 < 0 ? 0 : t - 1);
   });
